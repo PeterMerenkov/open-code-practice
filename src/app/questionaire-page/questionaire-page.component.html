@@ -1,0 +1,14 @@
+<div class="container">
+  <h3>{{ questionaire.title }}</h3>
+  
+  <form>
+    <app-question
+      *ngFor="let question of questionaire.questions; index as i"
+      [questionIdx]="i"
+      [question]="questionaire.questions[i]"
+      (newAnswerEvent)="pushAnswer(i, $event)"
+    ></app-question>
+
+    <div><button type="submit" class="btn" (click)="sendAnswers(1, questionaire.id, answers)">Отправить</button></div>
+  </form>
+</div>

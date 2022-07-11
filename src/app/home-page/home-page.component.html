@@ -1,0 +1,7 @@
+<div class="container">
+  <app-questionaire 
+    *ngFor="let questionaire of questionaires"
+    [id]="questionaire.id" 
+    [title]="questionaire.title"
+  ></app-questionaire>
+</div>

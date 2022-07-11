@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+img {
+  width: 10rem;
+  height: 10rem;
+  margin-right: 0.5rem;  
+}
+
+.info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  div {
+    word-break: break-word;
+    // max-width: 8rem;
+    margin: 0.5rem;
+  }
+}
+
+h3 {
+  margin-bottom: 1rem;
+}
+
+.field {
+  display: flex;
+  justify-content: space-around;
+}

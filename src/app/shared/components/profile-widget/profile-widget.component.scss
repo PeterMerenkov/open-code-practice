@@ -1,0 +1,43 @@
+.widget {
+  width: 10rem;
+  height: 20rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid black;
+  border-top: 0;
+}
+
+.btns-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  padding: 0.3rem;
+}
+
+img {
+  width: 8rem;
+  height: 8rem;
+  margin-bottom: 1rem;  
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  div {
+    word-break: break-word;
+    max-width: 8rem;
+    margin-bottom: 0.5rem;
+  }
+}

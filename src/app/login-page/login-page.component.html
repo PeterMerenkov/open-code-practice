@@ -1,0 +1,43 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+  <div class="container">
+    <h3>ВХОД</h3>
+    <div class="form-controll">
+      <input type="email" placeholder="Email"
+        formControlName="email"
+      >
+      <div class="validation"
+        *ngIf="email.invalid && (email.touched || email.dirty)"
+      >
+        <small
+          *ngIf="email.errors?.['required']"
+        >Введите email</small>
+        <small
+          *ngIf="email.errors?.['email']"
+        >Email не корректен</small>
+      </div>
+    </div>
+    <div class="form-controll">
+      <input type="password" placeholder="Пароль"
+        formControlName="password"
+      >
+      <div class="validation"
+        *ngIf="password.invalid && (password.touched || password.dirty)"
+      >
+        <small
+          *ngIf="password.errors?.['required']"
+        >Введите пароль</small>
+        <small
+          *ngIf="password.errors?.['minlength']"
+        >Пароль должен содержать хотя бы {{ password.errors?.['minlength'].requiredLength }} символов.
+        Сейчас содержит {{ password.errors?.['minlength'].actualLength }} символов.</small>
+      </div>
+    </div>
+    <button type="submit"
+      [disabled]="form.invalid || isSubmitted"
+    >Войти</button>
+  
+    <div>
+      <a routerLink="/singup">Нет аккаунта?</a>
+    </div>
+  </div>
+</form>

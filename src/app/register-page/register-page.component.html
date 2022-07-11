@@ -1,0 +1,80 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="container">
+    <h3>РЕГИСТРАЦИЯ</h3>
+    <div class="form-controll">
+      <input type="email" placeholder="Email"
+        formControlName="email"
+      >
+      <div
+        *ngIf="email.invalid && (email.touched || email.dirty)"
+      >
+        <small
+          *ngIf="email.errors?.['required']"
+        >Введите email</small>
+        <small
+          *ngIf="email.errors?.['email']"
+        >Email не корректен</small>
+      </div>
+    </div>
+  
+    <div class="form-controll">
+      <input type="username" placeholder="Имя пользователя"
+        formControlName="username"
+      >
+      <div
+        *ngIf="username.invalid && (username.touched || username.dirty)"
+      >
+        <small
+          *ngIf="username.errors?.['required']"
+        >Введите имя пользователя</small>
+      </div>
+    </div>
+  
+    <div class="form-controll">
+      <input type="password" placeholder="Пароль"
+        formControlName="password"
+      >
+      <div
+        *ngIf="password.invalid && (password.touched || password.dirty)"
+      >
+        <small
+          *ngIf="password.errors?.['required']"
+        >Введите пароль</small>
+        <small
+          *ngIf="password.errors?.['minlength']"
+        >Пароль должен содержать хотя бы {{ password.errors?.['minlength'].requiredLength }} символов.
+        Сейчас содержит {{ password.errors?.['minlength'].actualLength }} символов.</small>
+      </div>
+    </div>
+  
+    <div class="form-controll">
+      <input type="password" placeholder="Подтвердите пароль"
+        formControlName="confirmedPassword"
+      >
+      <div
+        *ngIf="confirmedPassword.invalid && (confirmedPassword.touched || confirmedPassword.dirty)"
+      >
+        <small
+          *ngIf="confirmedPassword.errors?.['required']"
+        >Введите пароль</small>
+        <small
+          *ngIf="confirmedPassword.errors?.['minlength']"
+        >Пароль должен содержать хотя бы {{ confirmedPassword.errors?.['minlength'].requiredLength }} символов.
+        Сейчас содержит {{ confirmedPassword.errors?.['minlength'].actualLength }} символов.</small>
+      </div>
+    </div>
+  
+  
+    <div
+      *ngIf="form.invalid && (confirmedPassword.touched || confirmedPassword.dirty)"
+    >
+      <small
+          *ngIf="form.errors?.['passwordsNotSame']"
+      >Пароли должны совпадать</small>
+    </div>
+  
+    <button type="submit"
+      [disabled]="form.invalid || isSubmitted"
+    >Зарегистрироваться</button>
+  </div>
+</form>

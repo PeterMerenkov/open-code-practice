@@ -1,0 +1,20 @@
+<nav class="navbar">
+  <h1
+    routerLink="/"
+  >Анкетное приложение</h1>
+  <div class="btns">
+    <a *ngIf="!isLoggedIn" [routerLink]="['/singin']">Войти</a>
+    <a *ngIf="isLoggedIn" (click)="toggleProfileWidget()">
+      <img src="https://cdn-icons-png.flaticon.com/512/55/55003.png" width="25rem" height="20rem">
+    </a>
+    <!-- <a [routerLink]="['/singin']">Войти</a>
+    <a (click)="toggleProfileWidget()">
+      <img src="https://cdn-icons-png.flaticon.com/512/55/55003.png" width="25rem" height="20rem">
+    </a> -->
+  </div>
+</nav>
+
+<div class="container">
+  <app-profile-widget *ngIf="isProfileWidgetToggled"></app-profile-widget>
+  <router-outlet></router-outlet>
+</div>
