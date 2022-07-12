@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { pipe, tap } from 'rxjs';
 import { Questionaire } from '../interface/questionaire';
 import { QuestionaireService } from '../_services/questionaire.service';
 
@@ -10,9 +11,11 @@ import { QuestionaireService } from '../_services/questionaire.service';
 })
 export class QuestionairePageComponent implements OnInit {
 
+  id!: number;
+
   questionaire: Questionaire = {
     id: 0,
-    title: '',
+    title: 'test',
     questions: []
   };
 
@@ -24,10 +27,9 @@ export class QuestionairePageComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe(p => this.id = Number(p.get('id')));
+    this.service.getQuestionaireById(this.id).subscribe(q => this.questionaire = q);
     this.answers.length = this.questionaire.questions.length;
-    this.route.paramMap.subscribe( p => this.service.getQuestionaireById(Number(p.get('id'))).subscribe(
-      q => this.questionaire = q
-    ))
   }
 
   pushAnswer(i: number, answer: number) {

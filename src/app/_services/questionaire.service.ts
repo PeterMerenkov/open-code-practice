@@ -14,33 +14,30 @@ export class QuestionaireService {
 
   getQuestionaires(): Observable<Questionaire[]>{
     return this.http.get<Questionaire[]>(`${this.apiUrl}`)
-    .pipe(
+    /* .pipe(
+      tap(console.log),
       catchError(this.handleError)
-    );
+    ) */;
   }
 
-  getQuestionaireById(id: number): Observable<Questionaire>{
-    return this.http.get<Questionaire[]>(`${this.apiUrl}/${id}`)
+  getQuestionaireById(id: number): Observable<Questionaire> {
+    return this.http.get<Questionaire>(`${this.apiUrl}/${id}`);
+  }
+
+  sendAnswers(userId: number, qId: number, answers: number[]): Observable<number[]>{
+    return this.http.post<number[]>(`${this.apiUrl}/${userId}/${qId}`, answers)/* 
     .pipe(
       tap(console.log),
       catchError(this.handleError)
-    );
+    ) */;
   }
 
-  sendAnswers(userId: number, qId: number, answers: number[]): Observable<number>{
-    return this.http.post<number[]>(`${this.apiUrl}/${userId}/${qId}`, answers)
-    .pipe(
-      tap(console.log),
-      catchError(this.handleError)
-    );
-  }
-
-  updateAnswers(userId: number, qId: number, answers: number[]): Observable<number>{
+  updateAnswers(userId: number, qId: number, answers: number[]): Observable<number[]>{
     return this.http.put<number[]>(`${this.apiUrl}/${userId}/${qId}`, answers)
-    .pipe(
+    /* .pipe(
       tap(console.log),
       catchError(this.handleError)
-    );
+    ) */;
   }
 
   handleError(error: HttpErrorResponse): Observable<never> {

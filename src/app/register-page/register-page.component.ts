@@ -58,7 +58,7 @@ export class RegisterPageComponent implements OnInit {
     this.isSubmitted = true;
     this.auth.register(this.usernameValue, this.emailValue, this.passwordValue).subscribe({
       next: () => {
-        this.router.navigate(['/login'])
+        this.router.navigate(['/singin'])
       },
       error: () => {
         this.isSubmitted = false

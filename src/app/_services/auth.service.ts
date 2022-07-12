@@ -1,9 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 
 import { shareReplay, tap } from 'rxjs/operators';
+
+import jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -12,38 +15,32 @@ export class AuthService {
 
   authApiUrl: string = 'api/v1/auth';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router) { }
 
-  login(email: string, password: string): Observable<any> {
+  login(email: string, password: string) {
     return this.http.post(
-      this.authApiUrl + '/signin',
+      'http://localhost:8080/api/v1/auth' + '/login',
       {
         email,
         password
       }
-    ).pipe(
-      tap((res) => {this.setSession}),
-      shareReplay()
-    );
+    ).subscribe((resp: any) => {
+      localStorage.setItem('auth_token', resp.token);
+      this.router.navigate(['/']);
+    });
   }
 
   logout() {
-    localStorage.removeItem("id_token");
-    localStorage.removeItem("expires_at");
+    localStorage.removeItem("auth_token");
+    this.router.navigate(['/']);
   }
 
-  setSession(authResult: any) {
-    console.log(authResult);
-
-    const expiresAt = moment().add(authResult.expiresIn,'second');
-
-    localStorage.setItem('id_token', authResult.idToken);
-    localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()) );
-  }
 
   register(username: string, email: string, password: string): Observable<any> {
     return this.http.post(
-      this.authApiUrl + '/signup',
+      'http://localhost:8080/api' + '/regis',
       {
         username,
         email,
@@ -53,7 +50,7 @@ export class AuthService {
   }
 
   public isLoggedIn(): boolean {
-    return (localStorage.getItem('token') !== null);
+    return (localStorage.getItem('auth_token') !== null);
     // return moment().isBefore(this.getExpiration());
   }
 
@@ -65,5 +62,13 @@ export class AuthService {
       const expiration = localStorage.getItem("expires_at");
       const expiresAt = JSON.parse(expiration!);
       return moment(expiresAt);
+  }
+
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    } catch(Error) {
+      return null;
+    }
   }
 }
