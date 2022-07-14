@@ -1,30 +1,36 @@
 <form [formGroup]="form">
   <div>
-    <input type="text" formControlName="title">
+    <input formControlName="title" type="text" class="title" placeholder="Заголовок">
   </div>
   <div 
     formArrayName="questions"
     *ngFor="let q of questions.controls; index as i"
   >
     <div [formGroupName]="i">
-      <input type="text" formControlName="qText">
-
+      <input formControlName="qText" type="text" class="q-input" placeholder="Вопрос №{{i + 1}}">
+      <button (click)="addAnswer(i)">Добавить ответ</button>
+      <button (click)="deleteQuestion(i)">Удалить вопрос</button>
       <div
         *ngFor="let a of getQuestion(i).controls; index as j"
+        class="a-container"
       >
-        <input type="radio" [value]="j" formControlName="rightAnswerIdx">
-        <span formArrayName="answers">
-          <input type="text" [formControlName]="j">
-        </span>
-        <button (click)="deleteAnswer(i, j)">Удалить ответ</button>
+        <div>
+          <input type="radio" [value]="j" formControlName="rightAnswerIdx">
+          <span formArrayName="answers">
+            <input [formControlName]="j" type="text" placeholder="Ответ №{{j + 1}}">
+          </span>
+          <button (click)="deleteAnswer(i, j)">Удалить ответ</button>
+        </div>
       </div>
-      <button (click)="deleteQuestion(i)">Удалить вопрос</button>
-      <button (click)="addAnswer(i)">Добавить ответ</button>
+  
     </div>
   </div>
-  <button (click)="addQuestion()">Добавить вопрос</button>
+  <button (click)="addQuestion()" class="add-q-btn">Добавить вопрос</button>
 
   <div>
-    <button [disabled]="form.invalid || questions.invalid" (click)="createQuestionnaire()">отправить</button>
+    <button [disabled]="form.invalid || questions.invalid" (click)="createQuestionnaire()">Создать анкету</button>
+  </div>
+  <div *ngIf="form.invalid || questions.invalid">
+    <small>Анкета не корректна</small>
   </div>
 </form>

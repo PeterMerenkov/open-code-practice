@@ -1,0 +1,24 @@
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  width: 15rem;
+  font-size: 1em;
+}
+
+.q-input {
+  margin: 1rem 0;
+}
+
+.a-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-q-btn {
+  margin: 1rem;
+}
