@@ -25,7 +25,22 @@ export class CreatePageComponent implements OnInit {
   ngOnInit(): void {
     this.form = new FormGroup({
       title: new FormControl('', Validators.required),
-      questions: new FormArray([], Validators.required)
+      questions: new FormArray(
+        [
+          this.fb.group({
+            qText: this.fb.control('', Validators.required),
+            rightAnswerIdx: this.fb.control('', Validators.required),
+            answers: this.fb.array(
+              [
+                this.fb.control('', Validators.required),
+                this.fb.control('', Validators.required)
+              ], 
+              [Validators.required, this.val.minLengthArray(2)]
+            )
+          })
+        ], 
+        Validators.required
+      )
     })
     console.log(this.questions.controls);
     
@@ -45,8 +60,8 @@ export class CreatePageComponent implements OnInit {
         answers: []
       }
       
-      for (let j = 0; j < this.getQuestion(i).controls.length; j++) {
-        const answerForm = this.getQuestion(i).controls[j];
+      for (let j = 0; j < this.getAnswers(i).controls.length; j++) {
+        const answerForm = this.getAnswers(i).controls[j];
         
         this.answer = {
           text: answerForm.value,
@@ -66,11 +81,29 @@ export class CreatePageComponent implements OnInit {
   }
 
   deleteAnswer(i: number, j: number) {
-    this.getQuestion(i).removeAt(j)
+    this.getAnswers(i).removeAt(j)
   }
 
-  getQuestion(i: number) {
+  getAnswers(i: number) {
     return (this.questions.controls[i].get('answers') as FormArray)
+  }
+
+  getQuestionText(i: number): FormControl {
+    // console.log(this.getQuestionText(i).errors);
+    
+    return this.questions.controls[i].get('qText') as FormControl
+  }
+
+  getAnswersControls(i: number) {
+    return this.getAnswers(i).controls;
+  }
+
+  getAnswer(i: number, j: number) {
+    return this.getAnswersControls(i)[j] as FormControl;
+  }
+
+  getRightAnswerRadio(i: number) {
+    return this.questions.controls[i].get('rightAnswerIdx') as FormControl
   }
 
   addQuestion() {
@@ -78,15 +111,25 @@ export class CreatePageComponent implements OnInit {
       this.fb.group({
       qText: this.fb.control('', Validators.required),
       rightAnswerIdx: this.fb.control('', Validators.required),
-      answers: this.fb.array([], [Validators.required, this.val.minLengthArray(2)])
+      answers: this.fb.array(
+        [
+          this.fb.control('', Validators.required),
+          this.fb.control('', Validators.required)
+        ], 
+        [Validators.required, this.val.minLengthArray(2)]
+      )
     }))
   }
 
   addAnswer(i: number) {
     console.log(i);
-    this.getQuestion(i).push(
+    this.getAnswers(i).push(
       this.fb.control('', Validators.required)
     )
+  }
+
+  get title(): FormControl {
+    return this.form.get('title') as FormControl
   }
 
   get questions() {
