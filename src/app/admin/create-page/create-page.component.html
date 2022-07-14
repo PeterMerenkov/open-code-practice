@@ -52,7 +52,7 @@
   <div>
     <button [disabled]="form.invalid || questions.invalid" (click)="createQuestionnaire()">Создать анкету</button>
   </div>
-  <div *ngIf="form.invalid || questions.invalid">
+  <div *ngIf="title.invalid && questions.invalid && (title.dirty || title.touched || questions.dirty || questions.touched)">
     <small>Анкета не корректна</small>
   </div>
 </form>
