@@ -4,11 +4,12 @@
     <img src="https://okeygeek.ru/wp-content/uploads/2020/03/no_avatar.png">
     <div>
       <div><b>Email:</b></div>
-      <div>kinokraus.ss@gmail.com</div>
+      <div>{{ userData.email }}</div>
       <div><b>Никнейм:</b></div>
-      <div>Kinokraus</div>
+      <div>{{ userData.username }}</div>
       <div><b>Роль:</b></div>
-      <div>Админ</div>
+      <div>{{ userData.role }}</div>
+      <button routerLink="/admin/dashboard">Админка</button>
     </div>
   </div>
 

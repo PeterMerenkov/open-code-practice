@@ -40,4 +40,8 @@ export class MainLayoutComponent implements OnInit, DoCheck {
     this.isProfileWidgetToggled = !this.isProfileWidgetToggled;
   }
 
+  log(a: any) {
+    console.log(a);
+  }
+
 }

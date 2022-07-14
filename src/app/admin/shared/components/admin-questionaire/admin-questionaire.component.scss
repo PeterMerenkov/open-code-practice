@@ -1,0 +1,17 @@
+.card {
+  min-width: 40vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem;
+  border: 1px solid black;
+}
+
+.card-header {
+  margin: 1rem;
+}
+
+.btn {
+  margin: 1rem;
+  padding: 0.5rem;
+}

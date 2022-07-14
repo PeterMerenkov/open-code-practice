@@ -18,4 +18,8 @@ export class AdminLayoutComponent implements OnInit {
 
     this.router.navigate(['/login'])
   }
+
+  log(a: any) {
+    console.log(a);
+  }
 }

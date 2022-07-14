@@ -36,7 +36,7 @@ export class QuestionairePageComponent implements OnInit {
     this.answers[i] = answer;
   }
 
-  sendAnswers(userId: number, qId: number, answers: number[]) {
+  sendAnswers(userId: number, qId: any, answers: number[]) {
     this.service.sendAnswers(userId, qId, answers).subscribe();
   }
 }

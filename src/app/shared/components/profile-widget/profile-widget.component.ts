@@ -8,9 +8,16 @@ import { AuthService } from 'src/app/_services/auth.service';
 })
 export class ProfileWidgetComponent implements OnInit {
 
+  userData = {
+    email: '',
+    username: '',
+    role: ''
+  }
+
   constructor(private auth: AuthService) { }
 
   ngOnInit(): void {
+    this.userData = this.auth.getUserDate();
   }
 
   logout() {

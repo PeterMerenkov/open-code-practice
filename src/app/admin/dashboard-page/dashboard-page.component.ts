@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Questionaire } from 'src/app/interface/questionaire';
+import { QuestionaireService } from 'src/app/_services/questionaire.service';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardPageComponent implements OnInit {
 
-  constructor() { }
+  questionaires: Questionaire[] = [];
+
+  constructor(private service: QuestionaireService) { }
 
   ngOnInit(): void {
+    this.getQuestionaires();
+  }
+
+  getQuestionaires(): void {
+    this.service.getQuestionaires()
+    .subscribe(qs => {
+      this.questionaires = qs;
+    });
   }
 
 }

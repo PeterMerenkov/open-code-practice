@@ -1,1 +1,30 @@
-<p>create-page works!</p>
+<form [formGroup]="form">
+  <div>
+    <input type="text" formControlName="title">
+  </div>
+  <div 
+    formArrayName="questions"
+    *ngFor="let q of questions.controls; index as i"
+  >
+    <div [formGroupName]="i">
+      <input type="text" formControlName="qText">
+
+      <div
+        *ngFor="let a of getQuestion(i).controls; index as j"
+      >
+        <input type="radio" [value]="j" formControlName="rightAnswerIdx">
+        <span formArrayName="answers">
+          <input type="text" [formControlName]="j">
+        </span>
+        <button (click)="deleteAnswer(i, j)">Удалить ответ</button>
+      </div>
+      <button (click)="deleteQuestion(i)">Удалить вопрос</button>
+      <button (click)="addAnswer(i)">Добавить ответ</button>
+    </div>
+  </div>
+  <button (click)="addQuestion()">Добавить вопрос</button>
+
+  <div>
+    <button [disabled]="form.invalid || questions.invalid" (click)="createQuestionnaire()">отправить</button>
+  </div>
+</form>

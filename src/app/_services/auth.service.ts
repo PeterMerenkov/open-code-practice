@@ -19,6 +19,14 @@ export class AuthService {
     private http: HttpClient,
     private router: Router) { }
 
+  getUserDate() {
+    return {
+      email: this.getDecodedAccessToken(this.getToken() as string).sub,
+      username: this.getDecodedAccessToken(this.getToken() as string).username,
+      role: this.getDecodedAccessToken(this.getToken() as string).role === 'ADMIN' ? 'Администратор' : 'Пользователь'
+    }
+  }
+  
   login(email: string, password: string) {
     return this.http.post(
       'http://localhost:8080/api/v1/auth' + '/login',
@@ -62,6 +70,10 @@ export class AuthService {
       const expiration = localStorage.getItem("expires_at");
       const expiresAt = JSON.parse(expiration!);
       return moment(expiresAt);
+  }
+
+  getToken() {
+    return localStorage.getItem('auth_token');
   }
 
   getDecodedAccessToken(token: string): any {

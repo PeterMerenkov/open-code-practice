@@ -8,12 +8,13 @@ import { Questionaire } from '../interface/questionaire';
   providedIn: 'root'
 })
 export class QuestionaireService {
-  private readonly apiUrl:string = 'http://localhost:8080/user'
+  private readonly userApiUrl:string = 'http://localhost:8080/user'
+  private readonly adminApiUrl:string = 'http://localhost:8080/admin'
 
   constructor(private http: HttpClient) { }
 
   getQuestionaires(): Observable<Questionaire[]>{
-    return this.http.get<Questionaire[]>(`${this.apiUrl}`)
+    return this.http.get<Questionaire[]>(`${this.userApiUrl}`)
     /* .pipe(
       tap(console.log),
       catchError(this.handleError)
@@ -21,11 +22,15 @@ export class QuestionaireService {
   }
 
   getQuestionaireById(id: number): Observable<Questionaire> {
-    return this.http.get<Questionaire>(`${this.apiUrl}/${id}`);
+    return this.http.get<Questionaire>(`${this.userApiUrl}/${id}`);
+  }
+
+  createQuestionaire(q: Questionaire) {
+    return this.http.post<number[]>(`${this.adminApiUrl}`, q)
   }
 
   sendAnswers(userId: number, qId: number, answers: number[]): Observable<number[]>{
-    return this.http.post<number[]>(`${this.apiUrl}/${userId}/${qId}`, answers)/* 
+    return this.http.post<number[]>(`${this.userApiUrl}/${userId}/${qId}`, answers)/* 
     .pipe(
       tap(console.log),
       catchError(this.handleError)
@@ -33,7 +38,7 @@ export class QuestionaireService {
   }
 
   updateAnswers(userId: number, qId: number, answers: number[]): Observable<number[]>{
-    return this.http.put<number[]>(`${this.apiUrl}/${userId}/${qId}`, answers)
+    return this.http.put<number[]>(`${this.userApiUrl}/${userId}/${qId}`, answers)
     /* .pipe(
       tap(console.log),
       catchError(this.handleError)
@@ -43,5 +48,9 @@ export class QuestionaireService {
   handleError(error: HttpErrorResponse): Observable<never> {
     console.log(error);
     return throwError(`Error status - ${error.status}`);
+  }
+
+  deleteQuestionnaireById(id: number) {
+    return this.http.delete(`${this.adminApiUrl}/${id}`)
   }
 }

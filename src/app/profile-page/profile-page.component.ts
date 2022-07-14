@@ -11,12 +11,18 @@ export class ProfilePageComponent implements OnInit {
 
   questionaires: Questionaire[]= [];
 
+  userData = {
+    email: '',
+    username: '',
+    role: ''
+  }
+
   constructor(
     private auth: AuthService
   ) { }
 
   ngOnInit(): void {
-    console.log(this.auth.getDecodedAccessToken(localStorage.getItem('auth_token') as string))
+    this.userData = this.auth.getUserDate();
   }
 
 }

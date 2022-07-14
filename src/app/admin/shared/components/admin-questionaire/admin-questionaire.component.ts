@@ -1,14 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Questionaire } from 'src/app/interface/questionaire';
 import { QuestionaireService } from 'src/app/_services/questionaire.service';
 
 @Component({
-  selector: 'app-questionaire',
-  templateUrl: './questionaire.component.html',
-  styleUrls: ['./questionaire.component.scss']
+  selector: 'app-admin-questionaire',
+  templateUrl: './admin-questionaire.component.html',
+  styleUrls: ['./admin-questionaire.component.scss']
 })
-export class QuestionaireComponent implements OnInit {
+export class AdminQuestionaireComponent implements OnInit {
 
   @Input() title: string = '';
   @Input() id: any;
@@ -20,9 +19,8 @@ export class QuestionaireComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onClick(id: any) {
-    this.service.getQuestionaireById(id);
-    this.router.navigate(['/questionaire', id]);
+  onClick(id: number) {
+    this.service.deleteQuestionnaireById(id).subscribe();
   }
 
 }

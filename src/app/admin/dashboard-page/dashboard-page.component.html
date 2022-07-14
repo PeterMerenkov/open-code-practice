@@ -1,1 +1,8 @@
-<p>dashboard-page works!</p>
+<div class="container">
+  <app-admin-questionaire
+    *ngFor="let questionaire of questionaires"
+    [id]="questionaire.id" 
+    [title]="questionaire.title"
+  ></app-admin-questionaire>
+  <a routerLink="/admin/create">Создать анкету</a>
+</div>
