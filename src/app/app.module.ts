@@ -13,9 +13,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuestionComponent } from './shared/components/question/question.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { ConfirmPasswordDirective } from './_helpers/confirm-password.directive';
-import { ProfileWidgetComponent } from './shared/components/profile-widget/profile-widget.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { AuthInterceptor } from './_helpers/auth.interceptor';
+import { SharedModule } from './shared/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,6 @@ import { AuthInterceptor } from './_helpers/auth.interceptor';
     QuestionComponent,
     RegisterPageComponent,
     ConfirmPasswordDirective,
-    ProfileWidgetComponent,
     ProfilePageComponent
   ],
   imports: [
@@ -37,10 +36,11 @@ import { AuthInterceptor } from './_helpers/auth.interceptor';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   exports: [
-    
+
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}

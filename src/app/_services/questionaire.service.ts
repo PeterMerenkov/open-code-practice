@@ -8,7 +8,7 @@ import { Questionaire } from '../interface/questionaire';
   providedIn: 'root'
 })
 export class QuestionaireService {
-  private readonly userApiUrl:string = 'http://localhost:8080/user'
+  private readonly userApiUrl:string = 'http://localhost:8080/questionnaire'
   private readonly adminApiUrl:string = 'http://localhost:8080/admin'
 
   constructor(private http: HttpClient) { }
@@ -26,7 +26,7 @@ export class QuestionaireService {
   }
 
   createQuestionaire(q: Questionaire) {
-    return this.http.post<number[]>(`${this.adminApiUrl}`, q)
+    return this.http.post<Questionaire>(`${this.adminApiUrl}`, q)
   }
 
   sendAnswers(userId: number, qId: number, answers: number[]): Observable<number[]>{

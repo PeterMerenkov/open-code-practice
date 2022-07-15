@@ -4,8 +4,6 @@ import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 
-import { shareReplay, tap } from 'rxjs/operators';
-
 import jwt_decode from 'jwt-decode';
 
 @Injectable({
@@ -13,31 +11,29 @@ import jwt_decode from 'jwt-decode';
 })
 export class AuthService {
 
-  authApiUrl: string = 'api/v1/auth';
+  authApiUrl: string = 'http://localhost:8080/api/v1/auth';
 
   constructor(
     private http: HttpClient,
     private router: Router) { }
 
   getUserDate() {
+    console.log(this.getDecodedAccessToken(this.getToken() as string))
     return {
       email: this.getDecodedAccessToken(this.getToken() as string).sub,
-      username: this.getDecodedAccessToken(this.getToken() as string).username,
+      username: this.getDecodedAccessToken(this.getToken() as string).nickName,
       role: this.getDecodedAccessToken(this.getToken() as string).role === 'ADMIN' ? 'Администратор' : 'Пользователь'
     }
   }
   
   login(email: string, password: string) {
     return this.http.post(
-      'http://localhost:8080/api/v1/auth' + '/login',
+      this.authApiUrl + '/signin',
       {
         email,
         password
       }
-    ).subscribe((resp: any) => {
-      localStorage.setItem('auth_token', resp.token);
-      this.router.navigate(['/']);
-    });
+    )
   }
 
   logout() {
@@ -48,7 +44,7 @@ export class AuthService {
 
   register(username: string, email: string, password: string): Observable<any> {
     return this.http.post(
-      'http://localhost:8080/api' + '/regis',
+      this.authApiUrl + '/regis',
       {
         username,
         email,

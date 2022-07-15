@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Answer, Question, Questionaire } from 'src/app/interface/questionaire';
 import { QuestionaireService } from 'src/app/_services/questionaire.service';
 import { ValidationService } from 'src/app/_services/validation.service';
@@ -19,7 +20,8 @@ export class CreatePageComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private service: QuestionaireService,
-    private val: ValidationService
+    private val: ValidationService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -74,6 +76,8 @@ export class CreatePageComponent implements OnInit {
     }
     console.log(this.questionnaire)
     this.service.createQuestionaire(this.questionnaire).subscribe();
+
+    this.router.navigateByUrl('/admin/dashboard')
   }
 
   deleteQuestion(i: number) {

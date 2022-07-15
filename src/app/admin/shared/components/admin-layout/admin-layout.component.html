@@ -1,16 +1,17 @@
-<nav>
-  <h1><a routerLink="/">Админка</a></h1>
+<nav class="navbar">
+  <h1 routerLink="/admin/dashboard">Админка</h1>
 
-  <ul>
-    <li>
-      <a [routerLink]="['/admin', 'dashboard']">Главная</a>
-    </li>
-    <li>
-      <a [routerLink]="['/admin', 'create']">Создать</a>
-    </li>
-    <li>
-      <a href="#" (click)="logout($event)">Выйти</a>
-    </li>
-  </ul>
+  <a [routerLink]="['/admin', 'create']">Создать анкету</a>
+  <a routerLink="/">На главную</a>
+
+  <div class="btns">
+    <a *ngIf="isLoggedIn" (click)="toggleProfileWidget()">
+      <img src="https://cdn-icons-png.flaticon.com/512/55/55003.png" width="25rem" height="20rem">
+    </a>
+  </div>
 </nav>
-<router-outlet></router-outlet>
+
+<div class="container">
+  <app-profile-widget *ngIf="isProfileWidgetToggled"></app-profile-widget>
+  <router-outlet></router-outlet>
+</div>

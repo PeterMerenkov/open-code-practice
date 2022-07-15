@@ -3,6 +3,6 @@
   <li
     *ngFor="let answer of question.answers; index as i"
   >
-    <input type="radio" name="q{{ questionIdx }}" value="a{{ i }}" (input)="addNewAnswer(i)"> {{ question.answers[i].text }}
+    <input type="radio" name="q{{ questionIdx }}" value="a{{ i }}" (input)="addNewAnswer(i)" required> {{ question.answers[i].text }}
   </li>
 </ul>

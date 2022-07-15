@@ -41,7 +41,16 @@ export class LoginPageComponent implements OnInit {
 
   onSubmit() {
     this.isSubmitted = true;
-    this.auth.login(this.emailValue, this.passwordValue);
+    this.auth.login(this.emailValue, this.passwordValue).subscribe({
+      next: (resp: any) => {
+        localStorage.setItem('auth_token', resp.token);
+        this.router.navigate(['/']);
+      },
+      error: () => {
+        this.isSubmitted = false
+      }
+    });;
+    this.isSubmitted = false;
   }
   
   get email() {

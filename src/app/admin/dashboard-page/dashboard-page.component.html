@@ -3,6 +3,6 @@
     *ngFor="let questionaire of questionaires"
     [id]="questionaire.id" 
     [title]="questionaire.title"
+    (deleteEvent)="getQuestionaires()"
   ></app-admin-questionaire>
-  <a routerLink="/admin/create">Создать анкету</a>
 </div>

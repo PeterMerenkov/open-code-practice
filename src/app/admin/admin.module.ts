@@ -8,6 +8,8 @@ import { AdminQuestionaireComponent } from './shared/components/admin-questionai
 import { CreateFormComponent } from './shared/components/create-form/create-form.component';
 import { ReactiveFormsModule } from "@angular/forms";
 import { CreatePageComponent } from './create-page/create-page.component';
+import { ProfileWidgetComponent } from "../shared/components/profile-widget/profile-widget.component";
+import { SharedModule } from "../shared/shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { CreatePageComponent } from './create-page/create-page.component';
   imports: [
     CommonModule,
     AdminRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class AdminModule {

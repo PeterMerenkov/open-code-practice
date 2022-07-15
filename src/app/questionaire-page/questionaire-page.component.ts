@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { pipe, tap } from 'rxjs';
 import { Questionaire } from '../interface/questionaire';
 import { QuestionaireService } from '../_services/questionaire.service';
@@ -13,6 +13,8 @@ export class QuestionairePageComponent implements OnInit {
 
   id!: number;
 
+  isSubmitted = false;
+
   questionaire: Questionaire = {
     id: 0,
     title: 'test',
@@ -22,9 +24,10 @@ export class QuestionairePageComponent implements OnInit {
   answers: number[] = [];
 
   constructor(
-      private route: ActivatedRoute,
-      private service: QuestionaireService
-    ) { }
+    private router: Router,
+    private route: ActivatedRoute,
+    private service: QuestionaireService
+  ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(p => this.id = Number(p.get('id')));

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
   selector: 'app-admin-layout',
@@ -8,15 +9,29 @@ import { Router } from '@angular/router';
 })
 export class AdminLayoutComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  isProfileWidgetToggled = false;
+
+  isLoggedIn = this.auth.isLoggedIn();
+
+  constructor(
+    private auth: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
   }
 
-  logout(event: Event) {
-    event.preventDefault()
+  ngDoCheck(): void {
+    this.isLoggedIn = this.auth.isLoggedIn();
+    
+    if (!this.isLoggedIn) {
+      this.isProfileWidgetToggled = false;
+    }
+  }
+  
 
-    this.router.navigate(['/login'])
+  toggleProfileWidget() {
+    this.isProfileWidgetToggled = !this.isProfileWidgetToggled;
   }
 
   log(a: any) {
