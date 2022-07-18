@@ -16,6 +16,7 @@ import { ConfirmPasswordDirective } from './_helpers/confirm-password.directive'
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { AuthInterceptor } from './_helpers/auth.interceptor';
 import { SharedModule } from './shared/shared/shared.module';
+import { LeaderboardPageComponent } from './leaderboard-page/leaderboard-page.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SharedModule } from './shared/shared/shared.module';
     QuestionComponent,
     RegisterPageComponent,
     ConfirmPasswordDirective,
-    ProfilePageComponent
+    ProfilePageComponent,
+    LeaderboardPageComponent
   ],
   imports: [
     BrowserModule,

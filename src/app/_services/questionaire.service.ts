@@ -53,4 +53,8 @@ export class QuestionaireService {
   deleteQuestionnaireById(id: number) {
     return this.http.delete(`${this.adminApiUrl}/${id}`)
   }
+
+  getLeaderboard(id: number) {
+    return this.http.get<Questionaire>(`${this.userApiUrl}/leaderBoard/${id}`);
+  }
 }

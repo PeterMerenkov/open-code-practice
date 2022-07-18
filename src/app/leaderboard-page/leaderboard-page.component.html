@@ -1,0 +1,13 @@
+<!-- <p>leaderboard-page works!</p>
+
+<div>{{leaderboard | json}}</div> -->
+<div class="container">
+  <table border="1px">
+    <th>Имя пользователя</th><th>Очки</th>
+    <tr *ngFor="let user of leaderboard">
+      <td>{{ user.user.username }}</td><td>{{ user.score }}</td>
+    </tr>
+  </table>
+  
+  <button routerLink="/">На главную</button>
+</div>

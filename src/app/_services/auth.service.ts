@@ -44,7 +44,7 @@ export class AuthService {
 
   register(username: string, email: string, password: string): Observable<any> {
     return this.http.post(
-      this.authApiUrl + '/regis',
+      this.authApiUrl + '/signup',
       {
         username,
         email,
@@ -69,7 +69,7 @@ export class AuthService {
   }
 
   getToken() {
-    return localStorage.getItem('auth_token');
+    return localStorage.getItem('auth_token') as string;
   }
 
   getDecodedAccessToken(token: string): any {

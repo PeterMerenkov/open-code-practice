@@ -75,9 +75,11 @@ export class CreatePageComponent implements OnInit {
       this.questionnaire.questions.push(this.question)
     }
     console.log(this.questionnaire)
-    this.service.createQuestionaire(this.questionnaire).subscribe();
+    this.service.createQuestionaire(this.questionnaire).subscribe(() =>
+      this.router.navigateByUrl('/admin/dashboard')
+    );
 
-    this.router.navigateByUrl('/admin/dashboard')
+    
   }
 
   deleteQuestion(i: number) {

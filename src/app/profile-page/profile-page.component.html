@@ -9,7 +9,7 @@
       <div>{{ userData.username }}</div>
       <div><b>Роль:</b></div>
       <div>{{ userData.role }}</div>
-      <button routerLink="/admin/dashboard">Админка</button>
+      <button *ngIf="userData.role === 'Администратор'" routerLink="/admin/dashboard">Админка</button>
     </div>
   </div>
 

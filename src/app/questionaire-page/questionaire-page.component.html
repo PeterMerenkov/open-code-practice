@@ -1,14 +1,19 @@
 <div class="container">
   <h3>{{ questionaire.title }}</h3>
   
-  <form #form="ngForm">
-    <app-question
-      *ngFor="let question of questionaire.questions; index as i"
-      [questionIdx]="i"
-      [question]="questionaire.questions[i]"
-      (newAnswerEvent)="pushAnswer(i, $event)"
-    ></app-question>
+  <form [formGroup]="qForm" (ngSubmit)="sendAnswers()">
 
-    <div><button [disabled]="form.invalid" type="submit" class="btn" (click)="sendAnswers(1, questionaire.id, answers)">Отправить</button></div>
+    <div *ngFor="let q of questionaire.questions; index as i" formArrayName="qs">
+
+      <div>{{ q.text }}</div>
+      <div [formGroupName]="i">
+        <div *ngFor="let a of q.answers; index as j">
+          <input formControlName="answerIdx" [value]="j" type="radio" (input)="pushAnswer(i, j)">
+          <span>{{ a.text }}</span>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit">Отправить ответы</button>
   </form>
 </div>
